@@ -1,4 +1,4 @@
-package practice.baking;
+package cn.tedu.baking;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
