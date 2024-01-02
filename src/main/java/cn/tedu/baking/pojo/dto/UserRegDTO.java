@@ -4,26 +4,21 @@ import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
 
 /**
- * DTO: 封装用户传递给后端的数据
- * VO: 封装后端业务传输的数据
- * ENTITY: 封装表数据
- * POJO: 实体类
+ * DTO: 封裝用戶使用者傳遞給後端的數據
+ * VO: 封裝後端業務傳輸的數據
+ * ENTITY: 封裝表數據
+ * POJO: 實體類
  */
+
 @Data
 public class UserRegDTO {
-    /**
-     * 用户名
-     */
-    @ApiModelProperty(value = "用户名", required = true, example = "黑大帅")
+
+    @ApiModelProperty(value = "用戶名", required = true, example = "黑大帥")
     private String userName;
-    /**
-     * 密码
-     */
-    @ApiModelProperty(value = "密码", required = true)
+
+    @ApiModelProperty(value = "密碼", required = true)
     private String password;
-    /**
-     * 昵称
-     */
-    @ApiModelProperty(value = "昵称", required = true)
+
+    @ApiModelProperty(value = "暱稱", required = true)
     private String nickName;
 }

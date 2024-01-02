@@ -9,15 +9,15 @@ import java.util.Date;
 public class BannerAdminVO {
     private Long id;
     /**
-     * 轮播图的存储路径
+     * 輪播圖的存儲路徑
      */
     private String imgUrl;
     /**
-     * 创建时间
-     * Date类型默认的显示格式: 2023-02-08T06:29:44.000+00:00
-     * 一般都需要使用@JsonFormat注解转换格式进行返回
-     * ①pattern属性: 设置模版 yyyy表示年 MM表示月 dd表示日
-     * ②timezone属性: 设置时区
+     * 創建時間
+     * Date類型默認的顯示格式: 2023-02-08T06:29:44.000+00:00
+     * 一般都需要使用@JsonFormat註解轉換格式進行返回
+     * ①pattern屬性: 設置模版 yyyy表示年 MM表示月 dd表示日
+     * ②timezone屬性: 設置時區
      */
     @JsonFormat(pattern = "yyyy/MM/dd", timezone = "GMT+8")
     private Date createTime;
