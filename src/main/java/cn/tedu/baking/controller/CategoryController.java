@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.RestController;
 @RestController
 @RequestMapping("/v1/categories/")
 public class CategoryController {
+    //分類
     @Autowired
     CategoryMapper categoryMapper;
 
@@ -18,4 +19,5 @@ public class CategoryController {
     public JsonResult sub(@PathVariable Integer type) {
         return JsonResult.ok(categoryMapper.selectByType(type));
     }
+
 }
