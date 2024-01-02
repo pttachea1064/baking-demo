@@ -10,6 +10,7 @@ import cn.tedu.baking.response.StatusCode;
 @RestControllerAdvice
 @Slf4j
 public class GlobalHandlerException {
+    //全部的異常處理
     @ExceptionHandler(IllegalArgumentException.class)
     public JsonResult doHandleIllegalArgumentException(IllegalArgumentException e) {
         log.warn("IllegalArgumentException msg is {}", e.getMessage());
