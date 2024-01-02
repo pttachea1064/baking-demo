@@ -7,7 +7,7 @@ import lombok.NoArgsConstructor;
 @Getter
 @AllArgsConstructor
 @NoArgsConstructor
-public enum StatusCode {
+public enum StatusCode {//狀態代碼
 
     /**
      * 所有的枚舉實例都在最上面
