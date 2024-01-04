@@ -49,7 +49,9 @@ public class UserController {
     }
 
     @GetMapping("logout")
-    public JsonResult logout() {
+    public JsonResult logout(HttpSession session) {
+        //移除session當中的使用者(即登出)
+        session.removeAttribute("user");
         return JsonResult.ok();
     }
 }
