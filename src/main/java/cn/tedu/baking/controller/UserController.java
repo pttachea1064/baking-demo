@@ -7,6 +7,7 @@ import cn.tedu.baking.pojo.entity.User;
 import cn.tedu.baking.pojo.vo.UserVO;
 import cn.tedu.baking.response.JsonResult;
 import cn.tedu.baking.response.StatusCode;
+import jakarta.servlet.http.HttpSession;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
@@ -33,7 +34,8 @@ public class UserController {
     }
 
     @PostMapping("login")
-    public JsonResult login(@RequestBody UserLoginDTO userLoginDTO) {
+    public JsonResult login(@RequestBody UserLoginDTO userLoginDTO,
+                            HttpSession session) {
         UserVO userVO = userMapper.selectByUserName(userLoginDTO.getUserName());
         if (userVO == null) {
             return new JsonResult(StatusCode.USERNAME_ERROR);
@@ -41,6 +43,8 @@ public class UserController {
         if (!userVO.getPassword().equals(userLoginDTO.getPassword())) {
             return new JsonResult(StatusCode.PASSWORD_ERROR);
         }
+        //將已經登入的使用者保存到session當中
+        session.setAttribute("user",userVO);
         return JsonResult.ok(userVO);
     }
 
