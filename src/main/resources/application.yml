@@ -5,7 +5,11 @@ spring:
     password: root
   web:
     resources:
-      static-locations: classpath:static
+      static-locations: classpath:static,file:d/file
+  servlet:
+    multipart:
+      max-file-size: 100MB #單一文件容量
+      max-request-size: 200MB #多個文件總容量
 
 logging:
   level:

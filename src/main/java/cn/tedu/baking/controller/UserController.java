@@ -3,6 +3,7 @@ package cn.tedu.baking.controller;
 import cn.tedu.baking.mapper.UserMapper;
 import cn.tedu.baking.pojo.dto.UserLoginDTO;
 import cn.tedu.baking.pojo.dto.UserRegDTO;
+import cn.tedu.baking.pojo.dto.UserUpdateDTO;
 import cn.tedu.baking.pojo.entity.User;
 import cn.tedu.baking.pojo.vo.UserVO;
 import cn.tedu.baking.response.JsonResult;
@@ -19,6 +20,7 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpSession;
+import java.io.File;
 import java.util.Date;
 
 @RestController
@@ -87,5 +89,20 @@ public class UserController {
         return JsonResult.ok();
     }
 
+//    ----------------update-------------------------------------update---------------------
+
+    @PostMapping("update")
+    public JsonResult update (@RequestBody UserUpdateDTO userUpdateDTO){
+        //判斷大頭貼是否添加
+        if (userUpdateDTO.getImgUrl() != null) {
+            String imgUrl = userMapper.selectImgUrlById(userUpdateDTO.getId());
+            new File("d:/file"+imgUrl).delete();//刪除圖片位置
+        }
+        User user = new User();
+        BeanUtils.copyProperties(userUpdateDTO,user);
+        userMapper.update(user);
+        return JsonResult.ok();
+
+    }
 
 }
