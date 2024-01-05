@@ -15,6 +15,7 @@ import org.springframework.security.authentication.InternalAuthenticationService
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpSession;
@@ -26,15 +27,22 @@ public class UserController {
     @Autowired
     private UserMapper userMapper;
 
+    @Autowired
+    private PasswordEncoder encoder;
+
+
     @PostMapping("reg")
     public JsonResult reg(@RequestBody UserRegDTO userRegDTO) {
-        UserVO userVO = userMapper.selectByUserName(userRegDTO.getUserName());
+        UserVO userVO =
+                userMapper.selectByUserName(userRegDTO.getUserName());
         if (userVO != null) {
             return new JsonResult(StatusCode.USERNAME_ALREADY_EXISTS);
         }
         User user = new User();
         BeanUtils.copyProperties(userRegDTO, user);
         user.setCreateTime(new Date());
+        /*   encoder  */
+        user.setPassword(encoder.encode(userRegDTO.getPassword()));
         userMapper.insert(user);
         return JsonResult.ok();
     }
@@ -74,9 +82,10 @@ public class UserController {
     }
 
     @GetMapping("logout")
-    public JsonResult logout(HttpSession session) {
-        //移除session當中的使用者(即登出)
-        session.removeAttribute("user");
+    public JsonResult logout() {
+        SecurityContextHolder.clearContext();
         return JsonResult.ok();
     }
+
+
 }
