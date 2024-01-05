@@ -1,15 +1,15 @@
-package cn.tedu.baking.controller;
+package cn.tedu.baking.filter;
 
 import cn.tedu.baking.pojo.vo.UserVO;
-import jakarta.servlet.*;
-import jakarta.servlet.annotation.WebFilter;
-import jakarta.servlet.http.HttpServletRequest;
-import jakarta.servlet.http.HttpServletResponse;
-import jakarta.servlet.http.HttpSession;
-
+import javax.servlet.*;
+import javax.servlet.annotation.WebFilter;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
+import java.io.IOException;
 import java.io.IOException;
 
-@WebFilter (filterName = "loginFilter",urlPatterns = "/admin.html")
+@WebFilter(filterName = "loginFilter",urlPatterns = "/admin.html")
 //使用該註解 表示當前這個是一個篩選過濾的器具
 /*urlPatterns表示在何處攔截過濾*/
 //登入的篩選器 繼承servlet的Filter 並Override其中的方法
@@ -22,8 +22,8 @@ public class LoginFilter implements Filter {
          * 這樣做允許我們使用更多與HTTP相關的功能和資訊，而不僅僅是通用的Servlet功能。
          */
         System.out.println("Filter is starting!!");
-         HttpServletRequest  request = (HttpServletRequest)servletRequest;
-         HttpServletResponse  response = (HttpServletResponse)servletResponse;
+         HttpServletRequest request = (HttpServletRequest)servletRequest;
+         HttpServletResponse response = (HttpServletResponse)servletResponse;
 
         HttpSession session = request.getSession();
         UserVO user = (UserVO) session.getAttribute("user");
