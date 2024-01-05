@@ -15,23 +15,28 @@ import java.util.UUID;
 @RestController
 @RequestMapping("/v1/")
 public class UploadController {
-    private String dirPath ="D:file";
+    private String dirPath = "D:/file";
 
     @PostMapping("/upload")
-    public JsonResult upload(MultipartFile file)throws IOException{
+    public JsonResult upload(MultipartFile file) throws IOException {
         String fileName = file.getOriginalFilename();
-        String suffix = fileName.substring((fileName.lastIndexOf(".")));
-
-        fileName = UUID.randomUUID()+suffix;
-        SimpleDateFormat simpleDateFormat = new SimpleDateFormat("/yyyy/MM/dd/");
-
+        String suffix = fileName.substring(fileName.lastIndexOf("."));
+        fileName = UUID.randomUUID() + suffix;
+        SimpleDateFormat simpleDateFormat =
+                new SimpleDateFormat("/yyyy/MM/dd/");
         String datePath = simpleDateFormat.format(new Date());
         File dirFile = new File(dirPath + datePath);
-
-        if (!dirFile.exists()){
+        if (!dirFile.exists()) {
             dirFile.mkdirs();
         }
-        file.transferTo(new File(dirPath+datePath+fileName));
-        return JsonResult.ok(datePath+fileName  );
+        file.transferTo(new File(dirPath + datePath + fileName));
+        return JsonResult.ok(datePath + fileName);
     }
+
+    @PostMapping("remove")
+    public JsonResult remove (String url){
+        new File(dirPath +url).delete();
+        return JsonResult.ok();
+    }
+
 }
