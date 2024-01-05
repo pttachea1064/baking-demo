@@ -41,7 +41,7 @@ public class UserController {
         User user = new User();
         BeanUtils.copyProperties(userRegDTO, user);
         user.setCreateTime(new Date());
-        /*   encoder  */
+        /*   encoder 設定密碼加密方式 */
         user.setPassword(encoder.encode(userRegDTO.getPassword()));
         userMapper.insert(user);
         return JsonResult.ok();
