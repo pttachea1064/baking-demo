@@ -7,11 +7,11 @@ import cn.tedu.baking.pojo.entity.User;
 import cn.tedu.baking.pojo.vo.UserVO;
 import cn.tedu.baking.response.JsonResult;
 import cn.tedu.baking.response.StatusCode;
-import jakarta.servlet.http.HttpSession;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
+import javax.servlet.http.HttpSession;
 import java.util.Date;
 
 @RestController
