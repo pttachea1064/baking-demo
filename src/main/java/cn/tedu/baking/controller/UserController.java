@@ -105,4 +105,26 @@ public class UserController {
 
     }
 
+    @GetMapping("")
+    public JsonResult list(){
+        return JsonResult.ok(userMapper.select());
+    }
+//    ----------------管理修改-------------------------------------管理修改---------------------
+    @PostMapping("{id}/{isAdmin}/change")
+    public JsonResult change (@PathVariable Long id ,
+                              @PathVariable Integer isAdmin){
+        User user = new User();
+        user.setId(id);
+        user.setIsAdmin(isAdmin);
+        userMapper.update(user);
+        return JsonResult.ok();
+    }
+
+//    ----------------刪除指定用戶-----------------------------------刪除指定用戶----------------------
+
+    @PostMapping("{id}/delete")
+    public JsonResult delete (@PathVariable Long id ){
+        userMapper.deleteById(id);
+        return JsonResult.ok();
+    }
 }
