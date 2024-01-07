@@ -60,34 +60,13 @@ public class UserController {
 
     @ApiOperation(value = "登入")
     @PostMapping("login")
-    public JsonResult login(@RequestBody UserLoginDTO userLoginDTO,
-                            HttpSession session) {
-
-        try {
-            Authentication result = manager.authenticate(new UsernamePasswordAuthenticationToken(
-                    userLoginDTO.getUserName(), userLoginDTO.getPassword()));
-
-            SecurityContextHolder.getContext().setAuthentication(result);
-            System.out.println("user-Message:"+result.getPrincipal());
-
-        }catch (InternalAuthenticationServiceException e){
-            System.out.println("the user is null");
-            return new JsonResult(StatusCode.USERNAME_ERROR);
-        }catch (BadCredentialsException e ){
-            System.out.println("password is error!!");
-            return  new JsonResult(StatusCode.PASSWORD_ERROR);
-        }
-
-        UserVO userVO = userMapper.selectByUserName(userLoginDTO.getUserName());
-        if (userVO == null) {
-            return new JsonResult(StatusCode.USERNAME_ERROR);
-        }
-        if (!userVO.getPassword().equals(userLoginDTO.getPassword())) {
-            return new JsonResult(StatusCode.PASSWORD_ERROR);
-        }
-        //將已經登入的使用者保存到session當中
-        session.setAttribute("user",userVO);
-        return JsonResult.ok(userVO);
+    public JsonResult login(@RequestBody UserLoginDTO userLoginDTO) {
+        Authentication result = manager.authenticate(
+                new UsernamePasswordAuthenticationToken(
+                        userLoginDTO.getUserName(),
+                        userLoginDTO.getPassword()));
+        SecurityContextHolder.getContext().setAuthentication(result);
+        return JsonResult.ok(result.getPrincipal());
     }
 
     @ApiOperation(value = "登出")
