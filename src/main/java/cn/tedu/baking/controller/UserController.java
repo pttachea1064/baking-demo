@@ -61,12 +61,20 @@ public class UserController {
     @ApiOperation(value = "登入")
     @PostMapping("login")
     public JsonResult login(@RequestBody UserLoginDTO userLoginDTO) {
-        Authentication result = manager.authenticate(
-                new UsernamePasswordAuthenticationToken(
-                        userLoginDTO.getUserName(),
-                        userLoginDTO.getPassword()));
-        SecurityContextHolder.getContext().setAuthentication(result);
-        return JsonResult.ok(result.getPrincipal());
+        try {
+            Authentication result = manager.authenticate(
+                    new UsernamePasswordAuthenticationToken(
+                            userLoginDTO.getUserName(),
+                            userLoginDTO.getPassword()));
+            SecurityContextHolder.getContext().setAuthentication(result);
+            return JsonResult.ok(result.getPrincipal());
+        } catch (InternalAuthenticationServiceException e) {
+            System.out.println("無此使用者");
+            return new JsonResult(StatusCode.USERNAME_ERROR);
+        } catch (BadCredentialsException e) {
+            System.out.println("密碼錯誤");
+            return new JsonResult(StatusCode.PASSWORD_ERROR);
+        }
     }
 
     @ApiOperation(value = "登出")
