@@ -13,7 +13,6 @@ import springfox.documentation.swagger2.annotations.EnableSwagger2WebMvc;
 @Configuration
 @EnableSwagger2WebMvc
 public class Knife4jConfig {
-    //配置Swagger2的Docket的Bean实例
     @Bean
     public Docket createRestApi() {
         return new Docket(DocumentationType.SWAGGER_2)
