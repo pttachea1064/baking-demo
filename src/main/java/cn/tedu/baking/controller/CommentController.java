@@ -10,10 +10,7 @@ import cn.tedu.baking.security.CustomUserDetails;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.Date;
 
@@ -38,5 +35,10 @@ public class CommentController {
 
         contentMapper.updateCommentCountById(commentDTO.getContentId());
         return new JsonResult().ok();
+    }
+
+    @GetMapping("{id}")
+    public JsonResult select(@PathVariable Long id){
+        return JsonResult.ok(mapper.selectByContentId(id));
     }
 }

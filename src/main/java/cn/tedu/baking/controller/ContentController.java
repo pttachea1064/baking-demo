@@ -104,9 +104,4 @@ public class ContentController {
         return JsonResult.ok(contentMapper.selectByTypeForAdmin(type));
     }
 
-    @GetMapping("{id}")
-    public JsonResult select(@PathVariable Long id){
-        return JsonResult.ok(contentMapper.selectByContentId(id));
-    }
-
 }
