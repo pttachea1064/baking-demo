@@ -84,4 +84,29 @@ public class ContentController {
         return JsonResult.ok(contentMapper.selectByUserId(userId, contentId));
     }
 
+    @GetMapping("hot")
+    public JsonResult selectHot() {
+        return JsonResult.ok(contentMapper.selectHot());
+    }
+
+    @GetMapping("{type}/list")
+    public JsonResult selectList(@PathVariable Integer type) {
+        return JsonResult.ok(contentMapper.selectListByType(type));
+    }
+
+    @GetMapping("{wd}/search")
+    public JsonResult search(@PathVariable String wd) {
+        return JsonResult.ok(contentMapper.selectByWd(wd));
+    }
+
+    @GetMapping("{type}/admin")
+    public JsonResult selectAdmin(@PathVariable Integer type) {
+        return JsonResult.ok(contentMapper.selectByTypeForAdmin(type));
+    }
+
+    @GetMapping("{id}")
+    public JsonResult select(@PathVariable Long id){
+        return JsonResult.ok(contentMapper.selectByContentId(id));
+    }
+
 }

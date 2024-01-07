@@ -36,5 +36,5 @@ public interface ContentMapper {
 
     List<ContentAdminVO> selectByTypeForAdmin(Integer type);
 
-    int updateCommentCountById(Long contentId);
+    int selectByContentId(Long contentId);
 }
