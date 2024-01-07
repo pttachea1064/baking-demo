@@ -8,6 +8,9 @@ import cn.tedu.baking.pojo.entity.User;
 import cn.tedu.baking.pojo.vo.UserVO;
 import cn.tedu.baking.response.JsonResult;
 import cn.tedu.baking.response.StatusCode;
+import com.github.xiaoymin.knife4j.annotations.ApiOperationSupport;
+import io.swagger.annotations.Api;
+import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.AuthenticationManager;
@@ -23,6 +26,7 @@ import javax.servlet.http.HttpSession;
 import java.io.File;
 import java.util.Date;
 
+@Api(tags = "1.使用者管理")
 @RestController
 @RequestMapping("/v1/users/")
 public class UserController {
@@ -33,6 +37,8 @@ public class UserController {
     private PasswordEncoder encoder;
 
 
+    @ApiOperation(value = "註冊")
+    @ApiOperationSupport(order = 1)
     @PostMapping("reg")
     public JsonResult reg(@RequestBody UserRegDTO userRegDTO) {
         UserVO userVO =
@@ -52,6 +58,7 @@ public class UserController {
     @Autowired
     private AuthenticationManager manager;
 
+    @ApiOperation(value = "登入")
     @PostMapping("login")
     public JsonResult login(@RequestBody UserLoginDTO userLoginDTO,
                             HttpSession session) {
@@ -83,6 +90,7 @@ public class UserController {
         return JsonResult.ok(userVO);
     }
 
+    @ApiOperation(value = "登出")
     @GetMapping("logout")
     public JsonResult logout() {
         SecurityContextHolder.clearContext();
@@ -91,6 +99,7 @@ public class UserController {
 
 //    ----------------update-------------------------------------update---------------------
 
+    @ApiOperation(value = "使用者編輯")
     @PostMapping("update")
     public JsonResult update (@RequestBody UserUpdateDTO userUpdateDTO){
         //判斷大頭貼是否添加
@@ -105,11 +114,15 @@ public class UserController {
 
     }
 
+    @ApiOperation(value = "查找所有使用者")
     @GetMapping("")
     public JsonResult list(){
         return JsonResult.ok(userMapper.select());
     }
 //    ----------------管理修改-------------------------------------管理修改---------------------
+
+
+    @ApiOperation(value = "切換管理員")
     @PostMapping("{id}/{isAdmin}/change")
     public JsonResult change (@PathVariable Long id ,
                               @PathVariable Integer isAdmin){
@@ -122,6 +135,7 @@ public class UserController {
 
 //    ----------------刪除指定用戶-----------------------------------刪除指定用戶----------------------
 
+    @ApiOperation(value = "刪除使用者")
     @PostMapping("{id}/delete")
     public JsonResult delete (@PathVariable Long id ){
         userMapper.deleteById(id);
