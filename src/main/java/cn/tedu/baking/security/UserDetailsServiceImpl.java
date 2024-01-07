@@ -12,15 +12,15 @@ import org.springframework.stereotype.Service;
 
 @Service
 public class UserDetailsServiceImpl implements UserDetailsService {
-
     @Autowired
     private UserMapper userMapper;
 
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-        UserVO userVO = userMapper.selectByUserName(username);
-        if (userVO != null){
 
+        UserVO userVO = userMapper.selectByUserName(username);
+        if (userVO != null) {
+            String role = userVO.getIsAdmin() == 1 ? "ADMIN" : "USER";
             CustomUserDetails userDetails = new CustomUserDetails(
                     userVO.getId(),
                     userVO.getNickName(),
@@ -28,12 +28,9 @@ public class UserDetailsServiceImpl implements UserDetailsService {
                     userVO.getImgUrl(),
                     username,
                     userVO.getPassword(),
-                    AuthorityUtils.createAuthorityList("我的權限")
-            );
-
+                    AuthorityUtils.createAuthorityList(role));
             return userDetails;
         }
-
         return null;
     }
 }
