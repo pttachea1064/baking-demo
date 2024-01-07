@@ -20,15 +20,7 @@ public class UserDetailsServiceImpl implements UserDetailsService {
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
         UserVO userVO = userMapper.selectByUserName(username);
         if (userVO != null){
-//            UserDetails userDetails = User.builder()
-//                    .username(username)
-//                    .password(userVO.getPassword())
-//                    .disabled(false)
-//                    .accountLocked(false)
-//                    .accountExpired(false)
-//                    .credentialsExpired(false)
-//                    .authorities("權限名")
-//                    .build();
+
             CustomUserDetails userDetails = new CustomUserDetails(
                     userVO.getId(),
                     userVO.getNickName(),
